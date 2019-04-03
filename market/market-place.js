@@ -35,4 +35,9 @@ export class MarketPlace {
     sortHighestPrice(data) {
         return data.sort((i1, i2) => (i2.price - i1.price));
     }
+
+    request(market, item) {
+        const mk = this.getMarket(market);
+        return mk ? mk.sell(item) : mk; 
+    }
 }

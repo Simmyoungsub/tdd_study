@@ -3,6 +3,7 @@ import { Market } from './market';
 import { MarketItem } from './marketItem';
 
 /**
+ * 상품 구매하기
  */
 describe('MarketPlace Test', () => {
     let marketPlace;
@@ -75,5 +76,14 @@ describe('MarketPlace Test', () => {
             const max = sortHighest.map((i) => (i.price)).reduce((init, i) => (init > i ? init : i), -Infinity);
             expect(max).toBe(data[0].price);
         });
+    });
+
+    test('상품 구매하기', () => {
+        const candy = new MarketItem({name: '사탕', price: 200});
+        const market = new Market();
+        market.setName('A 마트');
+        const transaction = marketPlace.request(market, candy);
+        console.log(transaction);
+        expect(transaction.name).toBe(candy.name);
     });
 });
