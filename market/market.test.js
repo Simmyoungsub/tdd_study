@@ -38,4 +38,9 @@ describe('market test', () => {
         expect(i).toBeDefined();
         expect(i instanceof MarketItem).toBeTruthy();
     });
+
+    test('물품을 가져온다', () => {
+        const candy = market.getItem('사탕');
+        expect(candy).toBeDefined();
+    })
 })

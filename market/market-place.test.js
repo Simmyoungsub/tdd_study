@@ -1,15 +1,8 @@
 import {MarketPlace} from './market-place';
 import { Market } from './market';
+import { MarketItem } from './marketItem';
 
 /**
- * 마켓별 품목 비교
- * 가격비교
- * 상품정렬
- * 마켓 / 최저가격
- * 마켓 / 최대가격
- * 마켓별 품복 리스트
- * 마켓 등록
- * 제공되는 마켓 목록
  */
 describe('MarketPlace Test', () => {
     let marketPlace;
@@ -18,13 +11,13 @@ describe('MarketPlace Test', () => {
         marketPlace = new MarketPlace();
 
         const marketA = new Market();
-        marketA.adds({'name': '사탕', 'price': 200});
-        marketA.adds({'name': '초코', 'price': 500});
+        marketA.adds({'name': '사탕', 'price': 200}, 10);
+        marketA.adds({'name': '초코', 'price': 500}, 10);
         marketA.setName('A 마트');
 
         const marketB = new Market();
-        marketB.adds({'name': '사탕', 'price': 200});
-        marketB.adds({'name': '초코', 'price': 500});
+        marketB.adds({'name': '사탕', 'price': 400}, 10);
+        marketB.adds({'name': '초코', 'price': 300}, 10);
         marketB.setName('B 마트');
 
         marketPlace.add(marketA);
@@ -36,6 +29,51 @@ describe('MarketPlace Test', () => {
     });
 
     test('마켓 목록', () => {
-        expect(marketPlace.getMarkets().join(',')).toBe('A 마트,B 마트');
+        expect(marketPlace.getMarkets().map((i) => (i.name)).join(',')).toBe('A 마트,B 마트');
+    });
+
+    describe('마켓 찾기', () => {
+        test('마켓이 존재하면', () => {
+            const market = new Market();
+            market.setName('A 마트');
+            const info = marketPlace.getMarket(market);
+            expect(info.name).toBe('A 마트');
+        });
+        
+        test('마켓이 존재하지 않는다면', () => {
+            const market = new Market();
+            market.setName('D 마트');
+            const info = marketPlace.getMarket(market);
+            expect(info).not.toBeDefined();
+        })
+    });
+
+    describe('검색', () => {
+        let result;
+        const itemName = '사탕';
+
+        beforeEach(() => {
+            result = marketPlace.search(itemName);
+        });
+
+        test('물품 검색', () => {
+            expect(result).toBeDefined();
+            expect(result.search.name).toBe(itemName);
+            expect(result.result.length).toBe(2);
+        });
+
+        test('최저가', () => {
+            const data = result.result;
+            const sortLowest = marketPlace.sortLowestPrice(data);
+            const min = sortLowest.map((i) => (i.price)).reduce((init, i) => (init < i ? init : i), Infinity);
+            expect(min).toBe(data[0].price);
+        });
+
+        test('최고가', () => {
+            const data = result.result;
+            const sortHighest = marketPlace.sortHighestPrice(data);
+            const max = sortHighest.map((i) => (i.price)).reduce((init, i) => (init > i ? init : i), -Infinity);
+            expect(max).toBe(data[0].price);
+        });
     });
 });
