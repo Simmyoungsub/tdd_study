@@ -1,7 +1,7 @@
 export class MarketItem {
     constructor(param) {
         this.name = param.name;
-        this.price = param.price;
+        this.price = param.price || 0;
     }
 
     setName(name) {

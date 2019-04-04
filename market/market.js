@@ -1,5 +1,4 @@
 import {MarketItem} from './marketItem';
-import {findIndex} from 'lodash';
 
 export class Market {
     constructor() {
@@ -37,5 +36,13 @@ export class Market {
         }
 
         return this.items[item.name].shift();
+    }
+
+    getItem(itemName) {
+        if (!this.items[itemName]) {
+            return null;
+        }
+
+        return this.items[itemName][0];
     }
 }
