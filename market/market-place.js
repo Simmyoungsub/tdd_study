@@ -6,7 +6,7 @@ export class MarketPlace {
     }
 
     add(market) {
-        this.markets.push(market);
+        this.getMarkets().push(market);
     }
 
     getMarkets() {
@@ -14,13 +14,13 @@ export class MarketPlace {
     }
 
     getMarket(market) {
-        return this.markets.find((item) => (item.name === market.name));
+        return this.getMarket().find((item) => (item.name === market.name));
     }
 
     search(itemName) {
         return {
             search: { name: itemName },
-            result: this.markets.filter((market) => (market.howManyItems(new MarketItem({ name: itemName })) > 0))
+            result: this.getMarkets().filter((market) => (market.howManyItems(new MarketItem({ name: itemName })) > 0))
                 .map((market) => ({
                     market: market,
                     item: market.getItem(itemName)
