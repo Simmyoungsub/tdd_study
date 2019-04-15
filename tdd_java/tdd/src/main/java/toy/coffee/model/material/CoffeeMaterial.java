@@ -1,4 +1,4 @@
-package toy;
+package toy.coffee.model.material;
 
 public class CoffeeMaterial implements Material {
     int bean;

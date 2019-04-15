@@ -1,4 +1,6 @@
-package toy;
+package toy.coffee.model.order;
+
+import toy.coffee.model.drink.Drink;
 
 public class Order {
     int amount;

@@ -1,9 +1,16 @@
-package toy;
+package toy.coffee;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
+
+import toy.coffee.CoffeeMachine;
+import toy.coffee.model.drink.Drink;
+import toy.coffee.model.material.ChocolateMaterial;
+import toy.coffee.model.material.CoffeeMaterial;
+import toy.coffee.model.material.Material;
+import toy.coffee.model.order.Order;
 
 /**
  * 커피 / 핫초코 생성

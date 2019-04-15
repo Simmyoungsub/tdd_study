@@ -1,4 +1,6 @@
-package toy;
+package toy.coffee.model.drink;
+
+import toy.coffee.model.material.Material;
 
 public class Coffee implements Drink {
     Material material;
